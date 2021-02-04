@@ -1,0 +1,14 @@
+# Django #
+*.log
+*.pot
+*.pyc
+__pycache__
+immobilier/db.sqlite3
+immobilier/*/migrations/*
+
+# Python # 
+*.py[cod] 
+*$py.class 
+
+# Environments 
+.env
