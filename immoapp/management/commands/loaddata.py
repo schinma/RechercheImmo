@@ -8,8 +8,11 @@ from immoapp.models import ProjetImmobilier, Appartement
 class Command(BaseCommand):
 
     help =  """
-            Permet d'insérer les données d'un fichier JSON modélisant le modèle MeteoData dans la base de données.
-            Arguments: 
+            Permet d'insérer les données d'un fichier JSON modélisant les modèles 
+            ProjetImmobiliers et Appartements dans la base de données.
+            --------
+            Arguments:
+            --------
                 - Chemin vers le fichier csv
             """
     def add_arguments(self, parser):
@@ -20,15 +23,20 @@ class Command(BaseCommand):
         file = options['filename'][0]
         with open(file) as f:
             data = json.load(f)
-            for projet_data in data['projets']:
-                try:
-                    projet = ProjetImmobilier.objects.create(**projet_data)
-                except IntegrityError as err:
-                    print(err)
-            
-            for appart_data in data['appartements']:
-                try:
-                    appart = Appartement.create(**appart_data)
-                except IntegrityError as err:
-                    print(err)
+            try:
+                for projet_data in data['projets']:
+                    try:
+                        projet = ProjetImmobilier.objects.create(**projet_data)
+                    except IntegrityError as err:
+                        print(err)
+            except KeyError as err:
+                print(err)
+            try:
+                for appart_data in data['appartements']:
+                    try:
+                        appart = Appartement.create(**appart_data)
+                    except IntegrityError as err:
+                        print(err)
+            except KeyError as err:
+                print(err)
                 

@@ -22,7 +22,7 @@ def create_appartments(programs, number):
                     "prix": random.randint(80000, 300000),
                     "nb_piece": random.randint(1,4),
                     "projet" : program['nom'],
-                    "characteristiques" : [random.choice(caracteristiques),
+                    "caracteristiques" : [random.choice(caracteristiques),
                                             random.choice(caracteristiques)]
                 }
             appartments.append(appartment)

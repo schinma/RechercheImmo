@@ -23,7 +23,11 @@ class Appartement(models.Model):
     surface = models.FloatField()
     prix = models.FloatField()
     nb_piece = models.IntegerField()
-    projet = models.ForeignKey(ProjetImmobilier, on_delete=models.CASCADE, related_name='appartements')
+    projet = models.ForeignKey(
+        ProjetImmobilier, 
+        on_delete=models.CASCADE,
+        related_name='appartements'
+        )
     caracteristiques = models.ManyToManyField(Caracteristique)
 
     @classmethod
@@ -42,7 +46,7 @@ class Appartement(models.Model):
             projet=projet,
         )
 
-        for carac_name in kwargs['characteristiques']:
+        for carac_name in kwargs['caracteristiques']:
             carac, _ = Caracteristique.objects.get_or_create(nom=carac_name)
             appartement.caracteristiques.add(carac)    
         

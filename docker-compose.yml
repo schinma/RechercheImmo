@@ -6,11 +6,18 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile      
-    command: python manage.py runserver 0.0.0.0:8000
-    environment:
-      - DJANGO_SETTINGS_MODULE=immobilier.settings.production
+    command: sh -c "python manage.py makemigrations &&
+                    python manage.py migrate &&
+                    python create_data.py &&
+                    python manage.py collectstatic --clear --noinput &&
+                    python manage.py loaddata sample.json &&
+                    gunicorn immobilier.wsgi:application --bind 0.0.0.0:8000"
+    env_file: .env-docker
     ports:
       - 8000:8000
+    volumes:
+      - .:/app
+      - static_volume:/app/immobilier/staticfiles
     depends_on: 
       - db
   db:
@@ -26,3 +33,4 @@ services:
 
 volumes:
   postgres_data:
+  static_volume:

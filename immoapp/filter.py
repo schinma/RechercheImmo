@@ -1,4 +1,3 @@
-import datetime
 from django.db.models import Q, F, ExpressionWrapper, BooleanField
 
 from .models import ProjetImmobilier, Appartement, Caracteristique

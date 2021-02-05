@@ -7,17 +7,24 @@ class ProjetImmobilierSerializer(serializers.ModelSerializer):
         model = ProjetImmobilier
         fields = ['id', 'nom', 'actif']
 
-class CaracteristiqueSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Caracteristique
-        fields = ['nom']
+class CaracteristiqueSerializer(serializers.BaseSerializer):
+    def to_representation(self, obj):
+        return obj.nom
+    
+    def to_internal_value(self, data):
+        return data
 
 class AppartementSerializer(serializers.ModelSerializer):
     
-    caracteristiques = serializers.StringRelatedField(many=True)
+    caracteristiques = CaracteristiqueSerializer(many=True)
     projet = serializers.StringRelatedField(read_only=True)
     projet_id = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = Appartement
         fields = ['id', 'surface', 'prix', 'nb_piece', 'projet', 'projet_id', 'caracteristiques']
+    
+    def create(self, validated_data):
+        appartement = Appartement.create(**validated_data)
+        return appartement
+        
