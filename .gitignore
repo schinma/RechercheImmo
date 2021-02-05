@@ -3,8 +3,8 @@
 *.pot
 *.pyc
 __pycache__
-immobilier/db.sqlite3
-immobilier/*/migrations/*
+
+*/migrations/*
 
 # Python # 
 *.py[cod] 
