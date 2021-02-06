@@ -7,7 +7,7 @@ from immoapp.models import ProjetImmobilier, Appartement
 
 class Command(BaseCommand):
 
-    help =  """
+    help = """
             Permet d'insérer les données d'un fichier JSON modélisant les modèles 
             ProjetImmobiliers et Appartements dans la base de données.
             --------
@@ -15,9 +15,11 @@ class Command(BaseCommand):
             --------
                 - Chemin vers le fichier csv
             """
+
     def add_arguments(self, parser):
-        parser.add_argument('filename', nargs=1, type=str, help='Chemin vers le fichier json contenant les données')
-    
+        parser.add_argument('filename', nargs=1, type=str,
+                            help='Chemin vers le fichier json contenant les données')
+
     def handle(self, *args, **options):
 
         file = options['filename'][0]
@@ -39,4 +41,3 @@ class Command(BaseCommand):
                         print(err)
             except KeyError as err:
                 print(err)
-                
