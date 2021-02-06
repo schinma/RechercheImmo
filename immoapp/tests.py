@@ -73,6 +73,7 @@ class FilterTestCase(TestCase):
         self.assertEqual(result[1].prix, 90000)
         self.assertEqual(result[2].prix, 220000)
         self.assertEqual(result[3].prix, 200000)
+        self.assertEqual(len(result), 4)
 
     def test_sort_season_winter(self):
         date = datetime.date(2020, 12, 4)
@@ -82,3 +83,4 @@ class FilterTestCase(TestCase):
         self.assertEqual(result[1].prix, 220000)
         self.assertEqual(result[2].prix, 150000)
         self.assertEqual(result[3].prix, 90000)
+        self.assertEqual(len(result), 4)
