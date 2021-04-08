@@ -1,5 +1,5 @@
 # Recherche Immo
-## Projet Immobilier
+## API Projet Immobilier
 
 Installation avec docker-compose
 ```
